@@ -11,4 +11,4 @@ wget https://apt.llvm.org/llvm.sh
 chmod +x llvm.sh
 yes | ./llvm.sh 17
 
-apt-get install llvm-tools-20
+apt-get install clang-tools-20
