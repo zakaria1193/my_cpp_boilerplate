@@ -8,7 +8,7 @@ on:
 
 jobs:
   install:
-    runs-on: ubuntu-latest
+    runs-on: danger89/cmake:latest
 
     steps:
       - uses: actions/checkout@v3
@@ -18,6 +18,8 @@ jobs:
 
   configure:
     runs-on: ubuntu-latest
+    container:
+      image: danger89/cmake:latest
     needs: install
     steps:
       - uses: actions/checkout@v3
