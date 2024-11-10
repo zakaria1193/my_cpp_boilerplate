@@ -1,49 +1,35 @@
-BUILD_DIR :=./build
-GENERATOR :='Ninja Multi-Config'
+.PHONY: gdb run build-release build-debug
 
+BUILD_DIR := ./build
+
+# Set flags based on variables
+DRY_RUN_FLAG := $(if $(filter y,$(DRY_RUN)),-- -n)
+VERBOSE_FLAG := $(if $(filter y,$(VERBOSE)),--verbose)
+
+# Display settings
+$(info Dry run = $(DRY_RUN))
+$(info Verbose = $(VERBOSE))
+
+# Configure target using a single preset
 configure:
-	cmake --fresh -B ${BUILD_DIR} -G ${GENERATOR}
+	cmake --preset default
 
-RELEASE ?= n
-ifeq (${RELEASE},y)
-CONFIG=Release
-else
-CONFIG=Debug
-endif
+clean:
+	rm build -rf
 
-DRY_RUN ?= n
-ifeq (${DRY_RUN},y)
-DRY_RUN_FLAG=-- -n
-$(info Dry run)
-else
-DRY_RUN_FLAG=
-endif
+# Separate build targets for Debug and Release
+build-debug:
+	cmake --build --preset default-build --config Debug $(VERBOSE_FLAG) $(DRY_RUN_FLAG)
 
-VERBOSE ?= n
-ifeq (${VERBOSE},y)
-VERBOSE_FLAG=--verbose
-$(info Verbose)
-else
-VERBOSE_FLAG=
-endif
+build-release:
+	cmake --build --preset default-build --config Release $(VERBOSE_FLAG) $(DRY_RUN_FLAG)
 
-$(info verbose = ${VERBOSE})
+# Run target in Debug configuration by default
+OUTPUT_BIN := $(BUILD_DIR)/Debug/my_template_binary
 
-build_$(CONFIG):
-	$(info Build Config = ${CONFIG})
-	cmake --build --preset $(CONFIG) ${VERBOSE_FLAG} ${DRY_RUN_FLAG}
+run: build-debug
+	$(OUTPUT_BIN)
 
-build: build_$(CONFIG)
-
-%:
-	cmake --build --preset $(CONFIG) -t $@ ${VERBOSE_FLAG} ${DRY_RUN_FLAG}
-
-OUTPUT_BIN := ${BUILD_DIR}/$(CONFIG)/mockbee_test_bin
-
-run: build_$(CONFIG)
-	${OUTPUT_BIN}
-
-gdb: build_$(CONFIG)
-	gdb-multiarch ${OUTPUT_BIN} -ex "run"
-
-.PHONY: build build_$(CONFIG) configure run
+# Debug with GDB in Debug configuration
+gdb: build-debug
+	gdb-multiarch $(OUTPUT_BIN) -ex "run"
