@@ -9,4 +9,4 @@ apt-get install -y $PACKAGES
 # Install LLVM
 wget https://apt.llvm.org/llvm.sh
 chmod +x llvm.sh
-yes | ./llvm.sh 17 all
+yes | sudo ./llvm.sh 17 all

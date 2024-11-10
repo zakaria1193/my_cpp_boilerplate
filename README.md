@@ -4,7 +4,7 @@
 
 #### Build system
 - CMake 3.19 or later (to be able to use CMakePresets)
-- C++ compiler with C++23 support (Recommended clang-17+, The CI uses clang-20)
+- C++ compiler with C++23 support (clang 17)
 - ninja-build
 
 #### Static analyzes
