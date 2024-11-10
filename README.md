@@ -1,4 +1,3 @@
-
 [ Describe your project here ]
 
 ### Prerequisites
@@ -21,3 +20,20 @@
 
 [ Add your documentation here ]
 
+### Building with CMake Presets
+
+This project uses CMake Presets to manage build configurations. The presets are defined in the `CMakePresets.json` file.
+
+To configure and build the project using the Debug preset:
+
+```sh
+cmake --preset debug
+cmake --build --preset debug
+```
+
+To configure and build the project using the Release preset:
+
+```sh
+cmake --preset release
+cmake --build --preset release
+```

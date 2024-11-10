@@ -31,12 +31,12 @@ $(info verbose = ${VERBOSE})
 
 build_$(CONFIG):
 	$(info Build Config = ${CONFIG})
-	cmake --build ${BUILD_DIR} --config ${CONFIG} ${VERBOSE_FLAG} ${DRY_RUN_FLAG}
+	cmake --build --preset $(CONFIG) ${VERBOSE_FLAG} ${DRY_RUN_FLAG}
 
 build: build_$(CONFIG)
 
 %:
-	cmake --build ${BUILD_DIR} -t $@ ${VERBOSE_FLAG} ${DRY_RUN_FLAG}
+	cmake --build --preset $(CONFIG) -t $@ ${VERBOSE_FLAG} ${DRY_RUN_FLAG}
 
 OUTPUT_BIN := ${BUILD_DIR}/$(CONFIG)/mockbee_test_bin
 
