@@ -1,27 +1,4 @@
 ############################################################
-# Build types definitions
-############################################################
-get_property(isMultiConfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
-
-if(isMultiConfig)
-# Necessary for multi-configuration generators such as Ninja Multi-Config
-  set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
-  set(CMAKE_DEFAULT_BUILD_TYPE "Debug")
-  message(STATUS "Multi-configuration generator used, append --config <Debug|Release> "
-  "to build the desired configuration.")
-
-else()
-# Only relevant for Makefile/Ninja generators (And other single-configuration generators)
-# Manually set the default build type to Debug
-  if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug)
-    message(STATUS "Setting build type to 'Debug' as none was specified.")
-  endif()
-# Print the build type and flags
-  message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
-endif()
-
-############################################################
 # Set compiler, language and flags
 # Keep before project() call
 ############################################################
