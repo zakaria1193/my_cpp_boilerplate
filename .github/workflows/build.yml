@@ -10,28 +10,48 @@ jobs:
   install:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        build_type: [Debug, Release]
-
     steps:
       - uses: actions/checkout@v3
 
       - name: Install pre-requisits
         run: sudo ./first_setup.sh
 
+  build_debug:
+    runs-on: ubuntu-latest
+
+    needs: install
+
+    steps:
+      - uses: actions/checkout@v3
 
       - name: Configure CMake
-        # Configure CMake in a 'build' subdirectory.
-        run: cmake -B ${{github.workspace}}/build -G 'Ninja Multi-Config'
+        run: cmake --preset debug
 
       - name: Build
-        # Build your program with the given configuration
-        run: cmake --build ${{github.workspace}}/build --config ${{ matrix.build_type }}
+        run: cmake --build --preset debug
 
       - name: clang-tidy
-        run: cmake --build ${{github.workspace}}/build --config ${{ matrix.build_type }} -t clang-tidy
+        run: cmake --build --preset debug -t clang-tidy
       
       - name: cppcheck
-        run: cmake --build ${{github.workspace}}/build --config ${{ matrix.build_type }} -t cppcheck
+        run: cmake --build --preset debug -t cppcheck
 
+  build_release:
+    runs-on: ubuntu-latest
+
+    needs: install
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure CMake
+        run: cmake --preset release
+
+      - name: Build
+        run: cmake --build --preset release
+
+      - name: clang-tidy
+        run: cmake --build --preset release -t clang-tidy
+      
+      - name: cppcheck
+        run: cmake --build --preset release -t cppcheck
