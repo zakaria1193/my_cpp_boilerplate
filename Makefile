@@ -24,6 +24,9 @@ build-debug:
 build-release:
 	cmake --build --preset default-build --config Release $(VERBOSE_FLAG) $(DRY_RUN_FLAG)
 
+%:
+	cmake --build --preset default-build --config Release $(VERBOSE_FLAG) $(DRY_RUN_FLAG) -t $@
+
 # Run target in Debug configuration by default
 OUTPUT_BIN := $(BUILD_DIR)/Debug/my_template_binary
 

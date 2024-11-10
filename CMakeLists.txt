@@ -131,7 +131,7 @@ file(GLOB_RECURSE
 ############################################################
 
 # Add clang-tidy to the project
-find_program(CLANG_TIDY_EXE NAMES "clang-tidy-17")
+find_program(CLANG_TIDY_EXE NAMES "clang-tidy-20")
 
 if(CLANG_TIDY_EXE)
     message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
@@ -164,7 +164,7 @@ endif()
 
 # Add clang-format to the project only if version >= 17
 # using --version
-find_program(CLANG_FORMAT "clang-format-17")
+find_program(CLANG_FORMAT "clang-format-20")
 
 if(CLANG_FORMAT)
   message(STATUS "clang-format found: ${CLANG_FORMAT}")
