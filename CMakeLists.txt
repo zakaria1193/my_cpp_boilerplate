@@ -5,9 +5,6 @@
 # Set the C++ standard to use
 set(CMAKE_CXX_STANDARD 23)
 
-# Set the clang++ compiler
-set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
-set(CMAKE_C_COMPILER "/usr/bin/clang")
 set(CMAKE_SIZE "/usr/bin/size")
 
 # Colorize output
@@ -54,8 +51,7 @@ target_compile_options(custom_library PRIVATE
     -Wno-unused-private-field
     $<$<CONFIG:Debug>:
         -ggdb3
-        -fdebug-macro
-        -fparse-all-comments
+        -fdebug-cpp
         -fno-omit-frame-pointer
         -fno-optimize-sibling-calls
         -fsanitize=address,undefined
