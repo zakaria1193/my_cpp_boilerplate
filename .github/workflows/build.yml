@@ -1,4 +1,4 @@
-name: Build & Check
+name: Configure, Build, Static analysis
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  configure:
+  configure_and_build:
     runs-on: ubuntu-latest
     container:
       image: zakaria1193/cpp-cmake-llvm
