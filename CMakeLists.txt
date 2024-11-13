@@ -51,7 +51,6 @@ target_compile_options(custom_library PRIVATE
     -Wno-unused-private-field
     $<$<CONFIG:Debug>:
         -ggdb3
-        -fdebug-cpp
         -fno-omit-frame-pointer
         -fno-optimize-sibling-calls
         -fsanitize=address,undefined
